@@ -1,0 +1,2015 @@
+/* =========================================================
+   BVMSKN FUNKY WEBSITE
+   COMPLETE MASTER CSS
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+:root {
+    --bg: #f3f0e8;
+    --text: #111111;
+    --muted: #666666;
+    --accent: #ff4d00;
+    --accent2: #d9ff00;
+    --card: #ffffff;
+    --border: rgba(17,17,17,0.15);
+    --nav: rgba(243,240,232,0.75);
+}
+
+
+/* =========================================================
+   DARK THEME
+   ========================================================= */
+
+body.dark {
+    --bg: #0b0b0b;
+    --text: #f5f5f5;
+    --muted: #a0a0a0;
+    --accent: #ff5c00;
+    --accent2: #d9ff00;
+    --card: #151515;
+    --border: rgba(255,255,255,0.16);
+    --nav: rgba(11,11,11,0.72);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+
+    overflow-x: hidden;
+
+    transition:
+        background 0.6s ease,
+        color 0.6s ease;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   CUSTOM CURSOR
+   ========================================================= */
+
+.cursor {
+    position: fixed;
+
+    width: 10px;
+    height: 10px;
+
+    background: var(--text);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 99999;
+
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: difference;
+}
+
+.cursor-ring {
+    position: fixed;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--text);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 99998;
+
+    transform: translate(-50%, -50%);
+
+    transition:
+        width 0.3s ease,
+        height 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+
+#loader {
+    position: fixed;
+
+    inset: 0;
+
+    background: #111;
+
+    color: white;
+
+    z-index: 100000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-text {
+    display: flex;
+
+    gap: 4px;
+
+    font-family: "Anton", sans-serif;
+
+    font-size: clamp(70px, 15vw, 180px);
+
+    letter-spacing: -8px;
+}
+
+.loader-text span {
+    display: inline-block;
+
+    animation:
+        loaderBounce 1s infinite alternate;
+}
+
+.loader-text span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.loader-text span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.loader-text span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.loader-text span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.loader-text span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+@keyframes loaderBounce {
+
+    from {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translateY(-25px)
+            rotate(5deg);
+    }
+}
+
+#loader p {
+    margin-top: 20px;
+
+    letter-spacing: 5px;
+
+    font-size: 11px;
+}
+
+.loader-line {
+    width: 240px;
+
+    height: 2px;
+
+    background:
+        rgba(255,255,255,0.2);
+
+    margin-top: 25px;
+
+    overflow: hidden;
+}
+
+.loader-line div {
+    width: 0;
+
+    height: 100%;
+
+    background: white;
+
+    animation:
+        loading 2.5s forwards;
+}
+
+@keyframes loading {
+
+    to {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 80px;
+
+    padding: 0 4vw;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: var(--nav);
+
+    backdrop-filter: blur(18px);
+
+    border-bottom:
+        1px solid var(--border);
+
+    z-index: 5000;
+}
+
+
+/* CLICKABLE LOGO */
+
+.logo {
+    font-family: "Space Grotesk";
+
+    font-weight: 700;
+
+    font-size: 20px;
+
+    letter-spacing: -1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.logo:hover {
+    transform:
+        scale(1.08)
+        rotate(-2deg);
+}
+
+.logo span {
+    background: var(--text);
+
+    color: var(--bg);
+
+    padding: 4px 7px;
+
+    margin-right: 4px;
+}
+
+.nav-links {
+    display: flex;
+
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -6px;
+
+    width: 0;
+
+    height: 2px;
+
+    background: var(--accent);
+
+    transition:
+        width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+#themeButton {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--text);
+
+    font-size: 20px;
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease;
+}
+
+#themeButton:hover {
+
+    transform:
+        rotate(180deg)
+        scale(1.1);
+
+    background: var(--text);
+
+    color: var(--bg);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+    height: 100vh;
+
+    min-height: 700px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+}
+
+.small-heading {
+    position: relative;
+    z-index: 20;
+    margin-bottom: 40px;
+    font-size: 13px;
+    letter-spacing: 4px;
+    line-height: 1.6;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.hero h1 {
+
+    display: flex;
+
+    justify-content: center;
+
+    font-family: "Anton", sans-serif;
+
+    font-size:
+        clamp(130px, 25vw, 380px);
+
+    line-height: 0.72;
+
+    letter-spacing: -15px;
+
+    text-transform: uppercase;
+}
+
+.hero h1 span {
+
+    display: inline-block;
+
+    animation:
+        heroLetter
+        1.4s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+.hero h1 span:nth-child(1) {
+    animation-delay: 2.2s;
+}
+
+.hero h1 span:nth-child(2) {
+    animation-delay: 2.35s;
+}
+
+.hero h1 span:nth-child(3) {
+    animation-delay: 2.5s;
+}
+
+@keyframes heroLetter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(150px)
+            rotate(15deg)
+            scale(0.5);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            rotate(0)
+            scale(1);
+    }
+}
+
+.hero-subtitle {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    animation:
+        heroFade 1s 2.8s both;
+}
+
+@keyframes heroFade {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+.explore-button {
+
+    margin-top: 45px;
+
+    border: 0;
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+
+    padding:
+        18px 27px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease;
+}
+
+.explore-button span {
+
+    display: inline-block;
+
+    margin-left: 20px;
+
+    transition:
+        transform 0.4s ease;
+}
+
+.explore-button:hover {
+
+    transform:
+        translateY(-8px);
+
+    background:
+        var(--accent);
+}
+
+.explore-button:hover span {
+
+    transform:
+        translate(5px,-5px);
+}
+
+.scroll-indicator {
+
+    position: absolute;
+
+    bottom: 30px;
+
+    left: 4vw;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.scroll-indicator span {
+
+    font-size: 20px;
+
+    animation:
+        scrollArrow
+        1.5s
+        infinite;
+}
+
+@keyframes scrollArrow {
+
+    0%,100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(10px);
+    }
+}
+
+.hero-number {
+
+    position: absolute;
+
+    bottom: 30px;
+
+    right: 4vw;
+
+    font-family: "Anton";
+
+    font-size: 80px;
+
+    opacity: 0.08;
+}
+
+
+/* =========================================================
+   HERO ORBS
+   ========================================================= */
+
+.hero-background {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.orb {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter:
+        blur(1px);
+
+    animation:
+        orbMove
+        12s
+        infinite
+        alternate
+        ease-in-out;
+}
+
+.orb-one {
+
+    width: 380px;
+
+    height: 380px;
+
+    background:
+        var(--accent2);
+
+    top: 10%;
+
+    left: 5%;
+}
+
+.orb-two {
+
+    width: 260px;
+
+    height: 260px;
+
+    background:
+        var(--accent);
+
+    bottom: 5%;
+
+    right: 10%;
+
+    animation-delay:
+        -4s;
+}
+
+.orb-three {
+
+    width: 150px;
+
+    height: 150px;
+
+    background:
+        #5d4dff;
+
+    top: 25%;
+
+    right: 20%;
+
+    animation-delay:
+        -7s;
+}
+
+@keyframes orbMove {
+
+    from {
+
+        transform:
+            translate(0,0)
+            rotate(0deg);
+    }
+
+    to {
+
+        transform:
+            translate(120px,-80px)
+            rotate(180deg);
+    }
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+.section {
+
+    position: relative;
+
+    padding:
+        150px 7vw;
+
+    overflow: hidden;
+}
+
+.section-number {
+
+    position: absolute;
+
+    top: 60px;
+
+    right: 7vw;
+
+    font-family:
+        "Anton";
+
+    font-size:
+        100px;
+
+    opacity:
+        0.07;
+}
+
+.section-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    margin-bottom:
+        60px;
+}
+
+.section-label span {
+
+    width: 30px;
+
+    height: 2px;
+
+    background:
+        var(--accent);
+}
+
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.2fr 1fr;
+
+    gap:
+        8vw;
+}
+
+.about-title h2 {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(80px,10vw,170px);
+
+    line-height:
+        0.8;
+
+    letter-spacing:
+        -5px;
+}
+
+em {
+
+    color:
+        var(--accent);
+
+    font-style:
+        normal;
+}
+
+.about-text {
+
+    padding-top:
+        20px;
+}
+
+.large-text {
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        clamp(24px,3vw,45px);
+
+    line-height:
+        1.05;
+
+    margin-bottom:
+        35px;
+}
+
+.about-text p:not(.large-text) {
+
+    max-width:
+        500px;
+
+    line-height:
+        1.8;
+
+    color:
+        var(--muted);
+}
+
+.funky-button {
+
+    margin-top:
+        35px;
+
+    background:
+        transparent;
+
+    border:
+        1px solid var(--text);
+
+    padding:
+        15px 25px;
+
+    color:
+        var(--text);
+
+    font-weight:
+        700;
+
+    transition:
+        background 0.4s ease,
+        color 0.4s ease,
+        transform 0.4s ease;
+}
+
+.funky-button:hover {
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+
+    transform:
+        rotate(-2deg)
+        scale(1.05);
+}
+
+
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+
+.marquee-section {
+
+    overflow:
+        hidden;
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+
+    padding:
+        25px 0;
+
+    transform:
+        rotate(-2deg)
+        scale(1.05);
+}
+
+.marquee {
+
+    display:
+        flex;
+
+    white-space:
+        nowrap;
+
+    font-family:
+        "Anton";
+
+    font-size:
+        55px;
+
+    letter-spacing:
+        2px;
+
+    animation:
+        marquee
+        18s
+        linear
+        infinite;
+}
+
+.marquee span {
+
+    padding-right:
+        50px;
+}
+
+@keyframes marquee {
+
+    from {
+        transform:
+            translateX(0);
+    }
+
+    to {
+        transform:
+            translateX(-50%);
+    }
+}
+
+
+/* =========================================================
+   CAMPUS
+   ========================================================= */
+
+.giant-heading {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(100px,15vw,230px);
+
+    line-height:
+        0.75;
+
+    letter-spacing:
+        -7px;
+
+    margin-bottom:
+        100px;
+}
+
+.campus-cards {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        30px;
+
+    perspective:
+        1200px;
+}
+
+.campus-card {
+
+    transform-style:
+        preserve-3d;
+
+    transition:
+        transform 0.6s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.card-two {
+    margin-top:
+        120px;
+}
+
+.card-three {
+    margin-top:
+        40px;
+}
+
+.card-image {
+
+    height:
+        450px;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--card);
+}
+
+.card-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
+
+    transition:
+        transform 0.8s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.campus-card:hover
+.card-image img {
+
+    transform:
+        scale(1.12)
+        rotate(2deg);
+}
+
+.card-info {
+
+    padding:
+        20px 0;
+}
+
+.card-info span {
+
+    font-size:
+        10px;
+
+    color:
+        var(--accent);
+}
+
+.card-info h3 {
+
+    font-family:
+        "Space Grotesk";
+
+    margin:
+        10px 0;
+}
+
+.card-info p {
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.5;
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats {
+
+    min-height:
+        100vh;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1.5fr;
+
+    align-items:
+        center;
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+}
+
+.stats .section-label {
+    color:
+        var(--bg);
+}
+
+.stats-intro h2 {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(80px,11vw,170px);
+
+    line-height:
+        0.8;
+}
+
+.stats-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+}
+
+.stat {
+
+    min-height:
+        300px;
+
+    padding:
+        40px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.15);
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        space-between;
+
+    transition:
+        background 0.5s ease,
+        color 0.5s ease,
+        transform 0.5s ease;
+}
+
+.stat:hover {
+
+    background:
+        var(--accent2);
+
+    color:
+        #111;
+
+    transform:
+        scale(1.04)
+        rotate(-2deg);
+
+    z-index:
+        2;
+}
+
+.stat strong {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        100px;
+}
+
+.stat span {
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+}
+
+
+/* =========================================================
+   GALLERY
+   ========================================================= */
+
+.gallery-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1.4fr 1fr;
+
+    gap:
+        25px;
+}
+
+.gallery-item {
+
+    height:
+        450px;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--card);
+
+    transition:
+        transform 0.5s ease;
+}
+
+.gallery-item.large {
+
+    height:
+        650px;
+}
+
+.gallery-item.wide {
+
+    grid-column:
+        span 2;
+}
+
+.gallery-item img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
+
+    transition:
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.gallery-item:hover img {
+
+    transform:
+        scale(1.08)
+        rotate(-1.5deg);
+}
+
+
+/* =========================================================
+   ACTIVITIES
+   ========================================================= */
+
+.activity-list {
+
+    border-top:
+        1px solid
+        var(--border);
+}
+
+.activity {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        80px 1fr 1fr 50px;
+
+    align-items:
+        center;
+
+    padding:
+        30px 10px;
+
+    border-bottom:
+        1px solid
+        var(--border);
+
+    transition:
+        padding 0.5s ease,
+        background 0.5s ease,
+        transform 0.4s ease;
+}
+
+.activity:hover {
+
+    padding-left:
+        40px;
+
+    padding-right:
+        40px;
+
+    background:
+        var(--accent2);
+
+    color:
+        #111;
+
+    transform:
+        skewX(-2deg);
+}
+
+.activity span {
+
+    font-size:
+        11px;
+}
+
+.activity h3 {
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        25px;
+}
+
+.activity p {
+
+    color:
+        var(--muted);
+}
+
+.activity b {
+
+    font-size:
+        25px;
+}
+
+
+/* =========================================================
+   STAFF
+   ========================================================= */
+
+.staff {
+
+    min-height:
+        80vh;
+}
+
+.staff-card {
+
+    position:
+        relative;
+
+    min-height:
+        380px;
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+
+    padding:
+        60px;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    overflow:
+        hidden;
+
+    transition:
+        transform 0.6s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.staff-card::before {
+
+    content:
+        "STAFF";
+
+    position:
+        absolute;
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(150px,25vw,400px);
+
+    line-height:
+        0.7;
+
+    right:
+        -40px;
+
+    top:
+        20px;
+
+    opacity:
+        0.08;
+
+    pointer-events:
+        none;
+}
+
+.staff-card:hover {
+
+    transform:
+        scale(1.02)
+        rotate(-1deg);
+}
+
+.staff-card-number {
+
+    position:
+        absolute;
+
+    top:
+        30px;
+
+    left:
+        35px;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        3px;
+
+    color:
+        var(--accent2);
+}
+
+.staff-card-content {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    max-width:
+        650px;
+}
+
+.staff-card-content p {
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        clamp(25px,3vw,45px);
+
+    line-height:
+        1.05;
+
+    margin-bottom:
+        40px;
+}
+
+.staff-button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        30px;
+
+    padding:
+        18px 25px;
+
+    background:
+        var(--accent2);
+
+    color:
+        #111;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        2px;
+
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease;
+}
+
+.staff-button span {
+
+    font-size:
+        20px;
+
+    transition:
+        transform 0.4s ease;
+}
+
+.staff-button:hover {
+
+    transform:
+        translateY(-7px)
+        rotate(-2deg);
+
+    background:
+        var(--accent);
+
+    color:
+        white;
+}
+
+.staff-button:hover span {
+
+    transform:
+        translate(5px,-5px);
+}
+
+
+/* =========================================================
+   QUOTE
+   ========================================================= */
+
+.quote-section {
+
+    min-height:
+        100vh;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    text-align:
+        center;
+}
+
+.quote-section h2 {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(70px,13vw,210px);
+
+    line-height:
+        0.75;
+
+    letter-spacing:
+        -5px;
+}
+
+.quote-mark {
+
+    position:
+        absolute;
+
+    font-family:
+        "Anton";
+
+    font-size:
+        500px;
+
+    opacity:
+        0.05;
+
+    top:
+        -150px;
+
+    left:
+        -80px;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact-heading {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(100px,15vw,220px);
+
+    line-height:
+        0.75;
+
+    letter-spacing:
+        -8px;
+
+    margin-bottom:
+        100px;
+}
+
+.contact-card {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    border-top:
+        1px solid
+        var(--border);
+}
+
+.contact-card > div {
+
+    padding:
+        45px 30px;
+
+    border-right:
+        1px solid
+        var(--border);
+
+    transition:
+        background 0.4s ease,
+        transform 0.4s ease;
+}
+
+.contact-card > div:hover {
+
+    background:
+        var(--accent2);
+
+    color:
+        #111;
+
+    transform:
+        translateY(-8px);
+}
+
+.contact-card span {
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+
+    color:
+        var(--accent);
+}
+
+.contact-card h3 {
+
+    margin-top:
+        20px;
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        24px;
+
+    line-height:
+        1.2;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+
+    padding:
+        100px 7vw 30px;
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+}
+
+.footer-logo {
+
+    font-family:
+        "Anton";
+
+    font-size:
+        clamp(100px,20vw,300px);
+
+    line-height:
+        0.7;
+}
+
+footer p {
+
+    margin-top:
+        50px;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        3px;
+}
+
+footer > span {
+
+    display:
+        block;
+
+    margin-top:
+        15px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        2px;
+}
+
+.footer-bottom {
+
+    margin-top:
+        100px;
+
+    padding-top:
+        20px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,0.15);
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    font-size:
+        10px;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+   ========================================================= */
+
+.reveal {
+
+    opacity:
+        0;
+
+    transform:
+        translateY(100px)
+        rotate(2deg);
+
+    transition:
+        opacity 1s ease,
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal.show {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0)
+        rotate(0);
+}
+
+
+/* =========================================================
+   EXTRA FUNKY PHOTO EFFECT
+   ========================================================= */
+
+.gallery-item::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 30%,
+            rgba(255,255,255,0.18),
+            transparent 70%
+        );
+
+    transform:
+        translateX(-120%);
+
+    transition:
+        transform 0.8s ease;
+}
+
+.gallery-item:hover::after {
+
+    transform:
+        translateX(120%);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .nav-links {
+        display:
+            none;
+    }
+
+    .about-layout {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .campus-cards {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .card-two,
+    .card-three {
+
+        margin-top:
+            0;
+    }
+
+    .stats {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .gallery-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .gallery-item.large {
+
+        height:
+            450px;
+    }
+
+    .gallery-item.wide {
+
+        grid-column:
+            span 1;
+    }
+
+    .activity {
+
+        grid-template-columns:
+            50px 1fr 40px;
+    }
+
+    .activity p {
+
+        display:
+            none;
+    }
+
+    .contact-card {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .contact-card > div {
+
+        border-right:
+            0;
+
+        border-bottom:
+            1px solid
+            var(--border);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .section {
+
+        padding:
+            100px 6vw;
+    }
+
+    .hero h1 {
+
+        letter-spacing:
+            -8px;
+    }
+
+    .hero-subtitle {
+
+        flex-wrap:
+            wrap;
+
+        padding:
+            0 20px;
+    }
+
+    .giant-heading {
+
+        font-size:
+            85px;
+    }
+
+    .contact-heading {
+
+        font-size:
+            85px;
+    }
+
+    .stats-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .stat {
+
+        min-height:
+            220px;
+    }
+
+    .cursor,
+    .cursor-ring {
+
+        display:
+            none;
+    }
+
+    .staff-card {
+
+        padding:
+            35px;
+
+        min-height:
+            450px;
+    }
+
+}
