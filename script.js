@@ -1,11 +1,11 @@
 /* =========================================================
    BVMSKN FUNKY WEBSITE
-   COMPLETE MASTER JAVASCRIPT
+   MASTER JAVASCRIPT — CLEAN VERSION
    ========================================================= */
 
 
 /* =========================================================
-   OFFICIAL WEBSITE
+   OFFICIAL WEBSITES
    ========================================================= */
 
 const officialSchoolWebsite =
@@ -21,15 +21,12 @@ const staffWebsite =
 
 window.addEventListener("load", () => {
 
-    const loader =
-        document.getElementById("loader");
+    const loader = document.getElementById("loader");
 
     if (loader) {
 
         setTimeout(() => {
-
             loader.classList.add("hide");
-
         }, 2800);
 
     }
@@ -47,26 +44,17 @@ const cursor =
 const cursorRing =
     document.querySelector(".cursor-ring");
 
-let mouseX =
-    window.innerWidth / 2;
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
 
-let mouseY =
-    window.innerHeight / 2;
-
-let ringX =
-    mouseX;
-
-let ringY =
-    mouseY;
+let ringX = mouseX;
+let ringY = mouseY;
 
 
 document.addEventListener("mousemove", (event) => {
 
-    mouseX =
-        event.clientX;
-
-    mouseY =
-        event.clientY;
+    mouseX = event.clientX;
+    mouseY = event.clientY;
 
     if (cursor) {
 
@@ -109,7 +97,7 @@ animateCursor();
 
 
 /* =========================================================
-   CURSOR HOVER
+   CURSOR HOVER EFFECT
    ========================================================= */
 
 const interactiveElements =
@@ -174,7 +162,14 @@ if (themeButton) {
 
     themeButton.addEventListener(
         "click",
-        () => {
+        (event) => {
+
+            /*
+             * Stop this click from triggering
+             * any other document click effects.
+             */
+
+            event.stopPropagation();
 
             document.body.classList.toggle(
                 "dark"
@@ -187,7 +182,7 @@ if (themeButton) {
 
 
 /* =========================================================
-   SMOOTH SCROLL
+   SMOOTH SCROLL BUTTONS
    ========================================================= */
 
 const scrollButtons =
@@ -200,18 +195,22 @@ scrollButtons.forEach(button => {
 
     button.addEventListener(
         "click",
-        () => {
+        (event) => {
+
+            const targetSelector =
+                button.dataset.scroll;
 
             const target =
                 document.querySelector(
-                    button.dataset.scroll
+                    targetSelector
                 );
 
             if (target) {
 
+                event.preventDefault();
+
                 target.scrollIntoView({
-                    behavior:
-                        "smooth"
+                    behavior: "smooth"
                 });
 
             }
@@ -244,9 +243,7 @@ const revealElements =
 
 revealElements.forEach(element => {
 
-    element.classList.add(
-        "reveal"
-    );
+    element.classList.add("reveal");
 
 });
 
@@ -256,27 +253,31 @@ const revealObserver =
 
         (entries) => {
 
-            entries.forEach(
-                entry => {
+            entries.forEach(entry => {
 
-                    if (
-                        entry.isIntersecting
-                    ) {
+                if (entry.isIntersecting) {
 
-                        entry.target.classList.add(
-                            "show"
-                        );
+                    entry.target.classList.add(
+                        "show"
+                    );
 
-                    }
+                    /*
+                     * Stop observing after
+                     * the animation happens.
+                     */
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
 
                 }
-            );
+
+            });
 
         },
 
         {
-            threshold:
-                0.15
+            threshold: 0.15
         }
 
     );
@@ -499,8 +500,11 @@ window.addEventListener(
                     ${scrollY * 0.25}px
                 )
                 scale(
-                    ${1 -
-                    scrollY * 0.00025}
+                    ${Math.max(
+                        0.8,
+                        1 -
+                        scrollY * 0.00025
+                    )}
                 )`;
 
             heroTitle.style.opacity =
@@ -578,6 +582,11 @@ document.addEventListener(
     "click",
     (event) => {
 
+        /*
+         * Don't create ripples for
+         * clicks outside the page.
+         */
+
         const ripple =
             document.createElement(
                 "div"
@@ -618,42 +627,34 @@ document.addEventListener(
         );
 
 
-        ripple.animate(
+        const animation =
+            ripple.animate(
 
-            [
+                [
+                    {
+                        width: "10px",
+                        height: "10px",
+                        opacity: 1
+                    },
+
+                    {
+                        width: "180px",
+                        height: "180px",
+                        opacity: 0
+                    }
+
+                ],
+
                 {
-                    width:
-                        "10px",
-
-                    height:
-                        "10px",
-
-                    opacity:
-                        1
-                },
-
-                {
-                    width:
-                        "180px",
-
-                    height:
-                        "180px",
-
-                    opacity:
-                        0
+                    duration: 700,
+                    easing:
+                        "cubic-bezier(.2,.8,.2,1)"
                 }
 
-            ],
+            );
 
-            {
-                duration:
-                    700,
 
-                easing:
-                    "cubic-bezier(.2,.8,.2,1)"
-            }
-
-        ).onfinish = () => {
+        animation.onfinish = () => {
 
             ripple.remove();
 
@@ -733,7 +734,6 @@ floatingElements.forEach(
             ],
 
             {
-
                 duration:
                     3500 +
                     index * 500,
@@ -743,7 +743,6 @@ floatingElements.forEach(
 
                 easing:
                     "ease-in-out"
-
             }
 
         );
@@ -753,102 +752,73 @@ floatingElements.forEach(
 
 
 /* =========================================================
-   OFFICIAL SCHOOL WEBSITE LINKS
+   OFFICIAL WEBSITE INFORMATION LINKS
    ========================================================= */
 
 /*
-   These are interactive INFORMATION elements.
+   IMPORTANT:
+   
+   We do NOT attach a redirect handler
+   to every <a> element.
 
-   Photos are intentionally NOT included.
+   Your HTML already contains the
+   correct destinations.
+
+   This prevents the Staff button
+   from accidentally being redirected
+   to the homepage.
 */
 
-const schoolLinks =
+
+const informationElements =
     document.querySelectorAll(
-        ".nav-links a:not([href='#staff']), " +
-        ".explore-button, " +
-        ".funky-button, " +
-        ".activity, " +
-        ".stat, " +
-        ".contact-card > div"
+        ".activity"
     );
 
 
-schoolLinks.forEach(element => {
+informationElements.forEach(element => {
 
     element.style.cursor =
         "pointer";
-
-    element.addEventListener(
-        "click",
-        (event) => {
-
-            /*
-              Don't override normal
-              anchor links.
-            */
-
-            if (
-                element.tagName === "A" &&
-                element.getAttribute("href")
-            ) {
-
-                const href =
-                    element.getAttribute(
-                        "href"
-                    );
-
-                if (
-                    href.startsWith("#")
-                ) {
-
-                    return;
-
-                }
-
-            }
-
-
-            window.open(
-                officialSchoolWebsite,
-                "_blank"
-            );
-
-        }
-    );
 
 });
 
 
 /* =========================================================
-   STAFF BUTTON
+   STAFF LINK SAFETY
    ========================================================= */
 
-const staffButton =
-    document.querySelector(
-        ".staff-button"
+/*
+   Force the Staff navigation link
+   to use the official staff page.
+
+   This is an extra safety layer.
+*/
+
+const staffLinks =
+    document.querySelectorAll(
+        'a[href*="staffs-details.php"]'
     );
 
 
-if (staffButton) {
+staffLinks.forEach(link => {
 
-    staffButton.addEventListener(
-        "click",
-        (event) => {
-
-            /*
-              The HTML link already has
-              the correct staff URL.
-
-              This simply makes sure
-              the destination is correct.
-            */
-
-            event.stopPropagation();
-
-        }
+    link.setAttribute(
+        "href",
+        staffWebsite
     );
 
-}
+    link.setAttribute(
+        "target",
+        "_blank"
+    );
+
+    link.setAttribute(
+        "rel",
+        "noopener noreferrer"
+    );
+
+});
 
 
 /* =========================================================
@@ -889,6 +859,7 @@ console.log(
 ║   ENDLESS POSSIBILITIES.             ║
 ║                                      ║
 ║   Website Engine: ONLINE             ║
+║   Staff Link: CONNECTED              ║
 ╚══════════════════════════════════════╝
 `
 );
